@@ -40,7 +40,7 @@ const SavedTrackCard: FC<SavedTrackPayload> = (props) => {
                         <CiHeart className="size-3 lg:size-5" />
                     </button>
                 )}
-                <Link className="neu__norm flex items-center justify-center size-10 rounded-full" target="_blank" href={`api/tracks/${trackID}/stream`}>
+                <Link className="neu__norm flex items-center justify-center size-10 rounded-full" target="_blank" href={`/api/tracks/${trackID}/stream`}>
                     <FaDownload className="lg:size-4" />
                 </Link>
             </div>

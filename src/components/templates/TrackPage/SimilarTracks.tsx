@@ -6,10 +6,11 @@ import useInView from "@/hooks/useInView"
 import { FaSadTear } from "react-icons/fa"
 import { IoMdMusicalNote } from "react-icons/io"
 
-const SimilarTracks = ({ mood }: { mood: string }) => {
+const SimilarTracks = ({ mood, genre }: { mood: string | null, genre: string }) => {
 
     const { elemRef, isInview } = useInView()
-    const { data, isError, isPending, refetch } = useTracksQuery("search", `limit=20&mood=${mood}`, isInview)
+    const searchparams = mood ? `limit=20&mood=${mood}` : `limit=20&genre=${genre}`
+    const { data, isError, isPending, refetch } = useTracksQuery("search", searchparams, isInview)
 
     return (
         <div className={`${isInview ? 'opacity-100' : 'opacity-0'} duration-500 transition-opacity`} ref={elemRef}>

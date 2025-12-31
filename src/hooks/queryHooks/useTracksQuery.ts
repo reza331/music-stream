@@ -2,7 +2,7 @@ import { TrackResponse } from "@/types/tracks.type"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
-const useTracksQuery = (endPoint: ('trending' | 'search'), searchParams: string, isInview: boolean) => {
+const useTracksQuery = (endPoint: ('trending' | 'search'), searchParams: string, isActive: boolean) => {
 
     const getTracks = async () => {
 
@@ -20,7 +20,7 @@ const useTracksQuery = (endPoint: ('trending' | 'search'), searchParams: string,
     return useQuery<TrackResponse>({
         queryKey: ['tracks' , endPoint , searchParams],
         queryFn: getTracks,
-        enabled: isInview
+        enabled: isActive 
     })
 
 }

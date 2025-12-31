@@ -1,6 +1,7 @@
 export interface Playlist {
     id: string;
     playlist_name: string;
+    description:string | null;
     artwork: {
         "150x150": string;
         "480x480": string;

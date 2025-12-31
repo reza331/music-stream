@@ -2,7 +2,7 @@ import { PlaylistResponse } from "@/types/playlist.type"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
-const usePlaylistsQuery = (endPoint: ('trending' | 'search') ,searchParams: string , isInveiw:boolean) => {
+const usePlaylistsQuery = (endPoint: ('trending' | 'search') ,searchParams: string , isActive:boolean) => {
 
     const getPlaylists = async () => {
         
@@ -20,7 +20,7 @@ const usePlaylistsQuery = (endPoint: ('trending' | 'search') ,searchParams: stri
     return useQuery<PlaylistResponse>({
         queryKey: ['playlists', searchParams],
         queryFn: getPlaylists,
-        enabled:isInveiw
+        enabled:isActive
     })
 
 }

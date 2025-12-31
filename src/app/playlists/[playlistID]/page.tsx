@@ -1,23 +1,23 @@
 'use client'
 import SpinnerLoading from "@/components/modules/Loadings/SpinnerLoading"
-import SimilarTracks from "@/components/templates/TrackPage/SimilarTracks"
-import TrackInfoAndActionBox from "@/components/templates/TrackPage/TrackInfoAndActionBox"
-import useTrackQuery from "@/hooks/queryHooks/useTrackQuery"
+import PlaylistInfoBox from "@/components/templates/PlaylistPage/PlaylistInfoBox"
+import PlaylistTracks from "@/components/templates/PlaylistPage/PlaylistTracks"
+import usePlaylistQuery from "@/hooks/queryHooks/usePlaylistQuery"
 import { useParams } from "next/navigation"
 import { FaSadTear } from "react-icons/fa"
 
-const TrackPage = () => {
+const PlaylistPage = () => {
 
-    const { trackID } = useParams()
-    const { data, isPending , isError , refetch } = useTrackQuery(trackID as string)
+    const { playlistID } = useParams()
+    const { data, isPending, isError, refetch } = usePlaylistQuery(playlistID as string)
 
     return (
         <div className="flex flex-col gap-5">
             {
                 data &&
                 <>
-                    <TrackInfoAndActionBox {...data.data} />
-                    <SimilarTracks genre={data.data.genre} mood={data.data.mood} />
+                    <PlaylistInfoBox {...data.data[0]} />
+                    <PlaylistTracks playlistID={data.data[0].id} />
                 </>
             }
             {
@@ -36,4 +36,4 @@ const TrackPage = () => {
     )
 }
 
-export default TrackPage
+export default PlaylistPage

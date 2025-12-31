@@ -37,9 +37,9 @@ const PlaylistCard: FC<Playlist> = ({ id, playlist_name, user, artwork }) => {
                 {artWorkImage && <img loading="lazy" className="w-full h-full object-cover shadow-inner absolute z-10" src={artWorkImage} alt="" />}
             </div>
             <div className="neu__norm rounded-b-2xl p-3">
-                <div className="block neu__norm p-3 rounded-xl h-[60px]">
+                <Link href={`/playlists/${id}`} className="block neu__norm p-3 rounded-xl h-[60px] transition-[color,background-color] duration-500 hover:text-white hover:bg-(--hover-color)">
                     <span className="font-semibold text-[10px] lg:text-[12px] line-clamp-2 w-full">{playlist_name}</span>
-                </div>
+                </Link>
                 <div className="flex items-center gap-2 py-2 neu__norm mt-3 px-3 rounded-full">
                     {userProfileImage && <img className="w-5 h-5 rounded-full" src={userProfileImage} alt="" />}
                     {!userProfileImage && <AiOutlineUser className="size-4" />}

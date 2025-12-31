@@ -6,6 +6,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import ThemeToggle from "../Controls/ThemeToggle";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useSideBarStore } from "@/stores/sideBarStore";
+import SearchSection from "./SearchSection";
 
 export default function Header() {
 
@@ -21,7 +22,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <ThemeToggle />
           </div>
-          <TextInput icon={BiSearchAlt2} inputID="searchbar" place="Search ..." containerClass="py-2 gap-2" />
+          <SearchSection />
           <ProfileSection />
           <div className="-ms-2"><LoginLogoutArea /></div>
         </div>

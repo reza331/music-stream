@@ -36,13 +36,13 @@ const TrackInfoAndActionBox = (props: Track) => {
                         <img src={artworkUrl} className="size-[200px] xl:size-full absolute" />
                     </div>
                 }
-                <div className="h-full w-full gap-5 xl:w-[calc(100%-300px)] flex flex-col p-3 xl:p-5">
+                <div className="h-full w-full gap-5 xl:w-[calc(100%-330px)] flex flex-col p-3 xl:p-5">
                     <h2 className="text-lg xl:text-2xl font-semibold line-clamp-1">{title}</h2>
                     <div className="flex items-center gap-3 rounded-2xl grow w-full">
                         {/* info section */}
                         <div className="w-fit sm:w-[calc(100%-135px)] xl:w-[calc(100%-170px)] flex items-stretch gap-5 neu__inner h-full p-4 rounded-2xl">
                             <div className="flex flex-col justify-center gap-3 w-[150px]">
-                                <div className="flex items-center neu__norm w-full ps-1 py-2 rounded-full">
+                                <div className="flex items-center neu__norm w-full ps-1 py-1 rounded-full">
                                     {userProfilePicture && <img className="size-5 lg:size-10 rounded-full block me-2" src={userProfilePicture} />}
                                     <div className="font-semibold text-[8px] lg:text-[12px] line-clamp-1">{user.name}</div>
                                 </div>
