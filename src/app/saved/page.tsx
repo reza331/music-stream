@@ -10,12 +10,12 @@ const SavedPage = () => {
     const { status } = useSession()
 
     useEffect(() => {
-        if (status !== 'authenticated') {
+        if (status === 'unauthenticated') {
             redirect('/')
         }
     }, [status])
 
-    if (status !== 'loading') return null
+    if (status !== 'authenticated') return null
 
     return (
         <div className="flex flex-col gap-5">
