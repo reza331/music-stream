@@ -8,6 +8,7 @@ import TrackSearchCard from "../Cards/TrackSearchCard"
 import Link from "next/link"
 import PlaylistSearchCard from "../Cards/PlaylistSearchCard"
 import { AiOutlineClose } from "react-icons/ai"
+import { usePathname } from "next/navigation"
 
 interface SearchMobileProps {
     mobileSearchOpen: boolean
@@ -22,12 +23,18 @@ const SearchMobile: FC<SearchMobileProps> = ({ mobileSearchOpen, setMobileSearch
     const { data: trackData, isError: tracksError, isPending: trackPending, refetch: refetchTracks } = useTracksQuery('search', `limit=6&query=${debouncedSearch}`, isSearchActive)
     const { data: playlistData, isError: playlistsError, isPending: playlistsPending, refetch: refetchPlaylists } = usePlaylistsQuery('search', `limit=6&query=${debouncedSearch}`, isSearchActive)
 
+    const pathname = usePathname()
+
+    useEffect(() => {
+        setMobileSearchOpen(false)
+    }, [pathname])
+
     return (
         <div className={`${mobileSearchOpen ? `translate-x-0` : `-translate-x-full`} transition-[translate] duration-500 fixed bg-(--main-bg) w-dvw h-dvh z-90 top-0 left-0 p-5 lg:hidden`}>
 
             <div className="flex mb-5 gap-5 items-center">
                 <TextInput value={searchValue} setValue={setSearchValue} icon={BiSearchAlt2} inputID="searchbar" place="Search ..." containerClass="py-2 gap-2 w-full" />
-                <AiOutlineClose onClick={()=>setMobileSearchOpen(false)} className="size-5" />
+                <AiOutlineClose onClick={() => setMobileSearchOpen(false)} className="size-5" />
             </div>
 
             {searchValue && <div className="p-3 neu__inner rounded-3xl flex flex-col gap-3 mt-5">
