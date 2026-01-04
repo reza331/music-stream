@@ -1,16 +1,18 @@
 import Logo from "../Logo/Logo";
 import ProfileSection from "./ProfileSection";
 import LoginLogoutArea from "../Controls/LoginLogout";
-import TextInput from "../Inputs/TextInputs";
-import { BiSearchAlt2 } from "react-icons/bi";
 import ThemeToggle from "../Controls/ThemeToggle";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useSideBarStore } from "@/stores/sideBarStore";
 import SearchSection from "./SearchSection";
+import { useState } from "react";
+import { BiSearchAlt2 } from "react-icons/bi";
+import SearchMobile from "./SearchMobile";
 
 export default function Header() {
 
   const { setSideBarOpen } = useSideBarStore()
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
 
   return (
     <div className="w-full">
@@ -26,10 +28,16 @@ export default function Header() {
           <ProfileSection />
           <div className="-ms-2"><LoginLogoutArea /></div>
         </div>
-        <button className="lg:hidden" onClick={() => setSideBarOpen(true)}>
-          <GiHamburgerMenu className="size-6" />
-        </button>
+        <div className="flex items-center gap-5">
+          <button className="lg:hidden" onClick={() => setMobileSearchOpen(true)}>
+            <BiSearchAlt2 className="size-6" />
+          </button>
+          <button className="lg:hidden" onClick={() => setSideBarOpen(true)}>
+            <GiHamburgerMenu className="size-6" />
+          </button>
+        </div>
       </div>
+      <SearchMobile mobileSearchOpen={mobileSearchOpen} setMobileSearchOpen={setMobileSearchOpen} />
     </div>
   )
 }
