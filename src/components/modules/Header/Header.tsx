@@ -28,11 +28,11 @@ export default function Header() {
           <ProfileSection />
           <div className="-ms-2"><LoginLogoutArea /></div>
         </div>
-        <div className="flex items-center gap-5">
-          <button className="lg:hidden" onClick={() => setMobileSearchOpen(true)}>
+        <div className="flex items-center gap-5 lg:hidden">
+          <button onClick={() => setMobileSearchOpen(true)}>
             <BiSearchAlt2 className="size-6" />
           </button>
-          <button className="lg:hidden" onClick={() => setSideBarOpen(true)}>
+          <button onClick={() => setSideBarOpen(true)}>
             <GiHamburgerMenu className="size-6" />
           </button>
         </div>

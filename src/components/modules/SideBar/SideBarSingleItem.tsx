@@ -1,5 +1,6 @@
 import { SingleItemType } from '@/contents/sidebarContent'
 import { useSideBarStore } from '@/stores/sideBarStore'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FC } from 'react'
@@ -11,10 +12,14 @@ interface SidBarSingleItemProps extends SingleItemType {
     isSubmenu?: boolean
 }
 
-const SideBarSingleItem: FC<SidBarSingleItemProps> = ({ isSubmenu, text, icon: Icon, href, fontSize, iconW = 'w-5', iconH = 'h-5' }) => {
+const SideBarSingleItem: FC<SidBarSingleItemProps> = ({ onlylogin , isSubmenu, text, icon: Icon, href, fontSize, iconW = 'w-5', iconH = 'h-5' }) => {
+
+    const {status} = useSession()
 
     const pathname = usePathname()
     const { isSideBarCollapse } = useSideBarStore()
+
+    if(status !== 'authenticated' && onlylogin) return null
 
     return (
         <div>

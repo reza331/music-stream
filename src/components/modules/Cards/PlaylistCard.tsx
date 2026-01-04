@@ -18,7 +18,7 @@ const PlaylistCard: FC<Playlist> = ({ id, playlist_name, user, artwork }) => {
     const payloadFormat: SavedPlaylistPayload = { playlistID: id, creatorName: user.name, image: artWorkImage, playlistName: playlist_name }
 
     return (
-        <div className="select-none w-[150px] h-[250px] lg:w-[200px] lg:h-[300px] rounded-2xl flex flex-col hover:scale-[1.03] transition-transform duration-500 me-5">
+        <div className="select-none w-[150px] h-[250px] lg:w-[200px] lg:h-[300px] rounded-2xl flex flex-col hover:scale-[1.03] transition-transform duration-500">
             <div className="size-[150px] lg:size-[200px] rounded-t-2xl relative overflow-hidden">
                 <div className="absolute bottom-0 z-30 p-3">
                     {

@@ -9,6 +9,7 @@ export type SingleItemType = {
     text: string;
     href: string;
     icon: React.ElementType;
+    onlylogin?:boolean
 };
 
 export type DropDownType = {
@@ -56,6 +57,7 @@ const sideBarContent: Fields[] = [
                 href: "/saved",
                 text: "Saved",
                 icon: HiBookmark,
+                onlylogin:true,
             },
             // for future :))
             // {

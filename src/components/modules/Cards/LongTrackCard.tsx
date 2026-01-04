@@ -38,7 +38,7 @@ const LongTrackCard: FC<Track> = (props) => {
                     </button>
                 ) : (
                     <button onClick={() => saveTrackHandler(savedFormat, setIsSaved)} className="neu__norm flex items-center justify-center size-10 rounded-full">
-                        <CiHeart className="size-3 lg:size-5" />
+                        <CiHeart className="size-5 lg:size-6" />
                     </button>
                 )}
                 <Link className="neu__norm flex items-center justify-center size-10 rounded-full" target="_blank" href={`/api/tracks/${id}/stream`}>

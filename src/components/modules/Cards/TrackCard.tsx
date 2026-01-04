@@ -40,8 +40,8 @@ const TrackCard: FC<Track> = (props) => {
                     <div onClick={playAction} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
                         <CiPlay1 className="size-3 lg:size-4" />
                     </div>
-                    <div className="w-fit px-5 py-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
-                        <Link href={`/tracks?genre=${genre}`} className="size-full line-clamp-1">{genre}</Link>
+                    <div className="w-fit px-2 lg:px-5 py-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
+                        <Link href={`/tracks?genre=${genre}`} className="size-full line-clamp-1 text-[8px] lg:text-[10px]">{genre}</Link>
                     </div>
                 </div>
                 <div className="w-full h-full img_shadow rounded-t-2xl absolute z-20"></div>
