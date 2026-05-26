@@ -9,7 +9,7 @@ const useMusicImage = ({ baseImage, imageSize }: UseMusicImageProps) => {
 
     if (!baseImage) return null
 
-    const imageBaseUrl = `https://audius-discovery-7.cultur3stake.com/content`
+    const imageBaseUrl = `https://audius-standardvc-1-validator-3.figment.io/content`
 
     const extracedID = baseImage && extractContentId(baseImage)
 
