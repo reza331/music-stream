@@ -1,4 +1,5 @@
 import useIsSaved from "@/hooks/useIsSaved"
+import useMusicImage from "@/hooks/useMusicImage"
 import { SavedPlaylistPayload } from "@/types/saved-list.type"
 import { removeSavedPlaylistHandler, savePlaylistHandler } from "@/utils/actions"
 import Link from "next/link"
@@ -9,13 +10,14 @@ import { CiHeart } from "react-icons/ci"
 const SavedPlayListCard: FC<SavedPlaylistPayload> = (props) => {
 
     const { creatorName, image, playlistID, playlistName } = props
+    const imgUrl = useMusicImage({ baseImage: image, imageSize: '150x150' })
     const { isSaved, setIsSaved } = useIsSaved(playlistID, 'playlist')
 
 
     return (
         <div className="w-full neu__norm rounded-3xl h-[150px] lg:h-[90px] gap-3 flex lg:flex-row flex-col px-10 py-3 lg:items-center lg:justify-between">
             <div className="flex items-center gap-3 h-full">
-                <img loading="lazy" className="size-[67px] rounded-xl" src={image?.toString()} />
+                <img loading="lazy" className="size-[67px] rounded-xl" src={imgUrl as string} />
                 <div className="h-full pt-1">
                     <div className="text-lg font-semibold line-clamp-1">{playlistName}</div>
                     <div className="text-(--alt-text) text-[12px] line-clamp-1">{creatorName}</div>
