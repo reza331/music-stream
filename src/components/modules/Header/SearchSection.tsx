@@ -1,6 +1,6 @@
 import { BiSearchAlt2 } from "react-icons/bi"
 import TextInput from "../Inputs/TextInputs"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import useTracksQuery from "@/hooks/queryHooks/useTracksQuery"
 import useDebounce from "@/hooks/useDebounce"
 import TrackSearchCard from "../Cards/TrackSearchCard"
@@ -8,6 +8,7 @@ import Link from "next/link"
 import usePlaylistsQuery from "@/hooks/queryHooks/usePlaylistsQuery"
 import PlaylistSearchCard from "../Cards/PlaylistSearchCard"
 import { usePathname } from "next/navigation"
+import useClickOutside from "@/hooks/useClickOutside"
 
 const SearchSection = () => {
 
@@ -23,8 +24,12 @@ const SearchSection = () => {
         setSearchValue('')
     }, [pathname])
 
+    const searchboxRef = useRef<HTMLDivElement>(null)
+
+    useClickOutside(searchboxRef, () => setSearchValue(''), !!searchValue)
+
     return (
-        <div className="relative">
+        <div ref={searchboxRef} className="relative">
             {searchValue && <div className="bg-(--main-bg) p-1 w-[300px] neu__norm rounded-3xl absolute top-11 start-[-50px] z-50">
                 <div className="p-3 neu__inner rounded-3xl flex flex-col gap-3">
                     {/* section title & view all tracks */}

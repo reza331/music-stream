@@ -1,28 +1,24 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 
-const trackSchema = new Schema({
+export interface SavedTrack {
+    userID: string
+    trackID: string
+}
+
+const trackSchema = new Schema<SavedTrack>({
     userID: {
         type: String,
-        required: true
+        required: true,
     },
     trackID: {
         type: String,
-        required: true
-    },
-    trackTitle: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String,
-        required: true
-    },
-    uploaderName: {
-        type: String,
-        required: true
+        required: true,
     },
 })
+trackSchema.index(
+    { userID: 1, trackID: 1 },
+    { unique: true }
+)
 
-
-export const savedTracksModel = mongoose.models.SavedTracks || mongoose.model('SavedTracks', trackSchema)
+export const savedTracksModel:Model<SavedTrack> = mongoose.models.SavedTracks || mongoose.model<SavedTrack>('SavedTracks', trackSchema)
 

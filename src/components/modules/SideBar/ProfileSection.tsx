@@ -5,8 +5,8 @@ const ProfileSection = () => {
     const { isSideBarCollapse } = useSideBarStore()
     const { data, status } = useSession()
 
-    if(status === 'unauthenticated') return null
-       
+    if (status === 'unauthenticated' || status === 'loading') return null
+
     return (
         <div className={`rounded-3xl w-full flex ${isSideBarCollapse ? 'justify-center' : 'p-3 neu__inner'}`}>
             {

@@ -30,7 +30,7 @@ const SearchMobile: FC<SearchMobileProps> = ({ mobileSearchOpen, setMobileSearch
     }, [pathname])
 
     return (
-        <div className={`${mobileSearchOpen ? `translate-x-0` : `-translate-x-full`} transition-[translate] duration-500 fixed bg-(--main-bg) w-dvw h-dvh z-90 top-0 left-0 p-5 lg:hidden`}>
+        <div className={`${mobileSearchOpen ? `translate-x-0` : `-translate-x-full`} overflow-y-auto transition-[translate] duration-500 fixed bg-(--main-bg) w-dvw h-dvh z-90 top-0 left-0 p-5 lg:hidden`}>
 
             <div className="flex mb-5 gap-5 items-center">
                 <TextInput value={searchValue} setValue={setSearchValue} icon={BiSearchAlt2} inputID="searchbar" place="Search ..." containerClass="py-2 gap-2 w-full" />

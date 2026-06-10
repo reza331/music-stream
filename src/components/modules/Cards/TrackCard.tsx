@@ -4,6 +4,7 @@ import usePlayAction from "@/hooks/usePlayAction"
 import { SavedTrackPayload } from "@/types/saved-list.type"
 import { Track } from "@/types/tracks.type"
 import { removeSavedTrackHandler, saveTrackHandler } from "@/utils/actions"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { FC, memo } from "react"
 import { AiFillHeart, AiOutlineUser } from "react-icons/ai"
@@ -20,7 +21,7 @@ const TrackCard: FC<Track> = (props) => {
     const artWorkImage = useMusicImage({ baseImage: artwork && artwork["150x150"], imageSize: '150x150' })
     const userProfileImage = useMusicImage({ baseImage: user.profile_picture && user.profile_picture["150x150"], imageSize: '150x150' })
 
-    const {playAction} = usePlayAction(props , id)
+    const { playAction } = usePlayAction(props, id)
 
     const payloadFormat: SavedTrackPayload = { trackID: id, uploaderName: user.name, image: artWorkImage, trackTitle: title }
 
