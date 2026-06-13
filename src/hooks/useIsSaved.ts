@@ -25,10 +25,7 @@ const useIsSaved = (targetID: string | number, targetType: 'playlist' | 'track')
             }
         }
 
-
     }, [savedPlaylistsData, savedTacksData, targetID, targetType])
-
-
 
     return { isSaved, setIsSaved }
 }

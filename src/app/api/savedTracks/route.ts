@@ -1,10 +1,8 @@
-import { mainApi } from "@/axios/mainApi";
-import { SavedTrack, savedTracksModel } from "@/models/savedTrack";
+import { checkAlreadySaved, checkSavedLimit, checkTrackExist, getPagedList } from "@/lib/saved-item.service";
+import { savedTracksModel } from "@/models/savedTrack";
 import { getNextAuthSession } from "@/utils/api/getNextAuthSession";
 import dbConnect from "@/utils/database/dbConnect";
-import { model, Model } from "mongoose";
 import { NextRequest } from "next/server";
-
 
 export async function POST(req: NextRequest) {
 
@@ -16,18 +14,18 @@ export async function POST(req: NextRequest) {
 
         await dbConnect()
 
-        const body = await req.json()
+        const body: { trackID: string } = await req.json()
 
         if (typeof body.trackID !== 'string' || !body.trackID.trim()) return Response.json({ msg: '"trackID" cannot be empty' }, { status: 400 })
 
         const limitReached = await checkSavedLimit(savedTracksModel, session.user.id)
-        if (limitReached) return Response.json({ msg: 'Maximum Reached' }, { status: 403 })
+        if (limitReached) return Response.json({ msg: 'Maximum Reached' }, { status: 400 })
 
-        const alreadySaved = await checkAlreadySaved(savedTracksModel, session.user.id, body.trackID)
+        const alreadySaved = await checkAlreadySaved(savedTracksModel, session.user.id, 'trackID', body.trackID)
         if (alreadySaved) return Response.json({ msg: 'Item already saved' }, { status: 409 })
 
         const trackExists = await checkTrackExist(body.trackID)
-        if (!trackExists) return Response.json({ msg: 'Track does not exist in audius' }, { status: 400 })
+        if (!trackExists) return Response.json({ msg: 'Track does not exist in audius' }, { status: 404 })
 
         const savedTrack = { trackID: body.trackID, userID: session.user.id }
         await savedTracksModel.create(savedTrack)
@@ -96,39 +94,3 @@ export async function DELETE(req: NextRequest) {
 }
 
 
-const checkSavedLimit = async (model: Model<SavedTrack>, userID: string, limit = 300) => {
-    const count = await model.countDocuments({ userID })
-    return count >= limit
-}
-const checkAlreadySaved = async (model: Model<SavedTrack>, userID: string, trackID: string) => {
-    const track = await model.exists({ trackID, userID })
-    return Boolean(track)
-}
-const checkTrackExist = async (id: string) => {
-    try {
-        await mainApi.get(`/tracks/${id}`)
-        return true
-    } catch {
-        return false
-    }
-}
-const getPagedList = async (model: Model<SavedTrack>, userID: string, page: number = 1, limit = 5) => {
-
-    const totalCount = await model.countDocuments({ userID })
-
-    const totalPages = Math.ceil(totalCount / limit)
-
-    const safePage = Math.min(Math.max(page, 1), totalPages)
-
-    const skip = (safePage - 1) * limit
-
-    const pagedData = await model.find({ userID }).skip(skip).limit(limit).lean()
-
-    return {
-        data: pagedData,
-        page: safePage,
-        totalPages,
-        totalCount
-    }
-
-}

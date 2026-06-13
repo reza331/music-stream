@@ -6,7 +6,7 @@ const LoginLogoutArea = () => {
 
     const { status } = useSession()
 
-    if (status === 'loading') return null
+    if (status === 'loading') return <div>...</div>
 
     return (
         <>

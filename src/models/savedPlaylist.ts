@@ -1,28 +1,24 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 
-const playListSchema = new Schema({
+export interface SavedPlaylist {
+    userID: string
+    playlistID: string
+}
+
+const playListSchema = new Schema<SavedPlaylist>({
     userID: {
         type: String,
-        required: true
+        required: true,
     },
     playlistID: {
         type: String,
-        required: true
-    },
-    playlistName: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String,
-        required: true
-    },
-    creatorName: {
-        type: String,
-        required: true
+        required: true,
     },
 })
+playListSchema.index(
+    { userID: 1, playlistID: 1 },
+    { unique: true }
+)
 
-
-export const savedPlaylistsModel = mongoose.models.SavedPlaylists || mongoose.model('SavedPlaylists', playListSchema)
+export const savedPlaylistsModel:Model<SavedPlaylist> = mongoose.models.SavedPlaylists || mongoose.model<SavedPlaylist>('SavedPlaylists', playListSchema)
 
