@@ -1,9 +1,9 @@
 import useIsSaved from "@/hooks/useIsSaved"
 import useMusicImage from "@/hooks/useMusicImage"
 import usePlayAction from "@/hooks/usePlayAction"
+import useSaveAction from "@/hooks/useSaveAction"
 import { SavedTrackPayload } from "@/types/saved-list.type"
 import { Track } from "@/types/tracks.type"
-import { removeSavedTrackHandler, saveTrackHandler } from "@/utils/actions"
 import { getDuration } from "@/utils/formatters/getDuration"
 import Link from "next/link"
 import { useState } from "react"
@@ -22,9 +22,10 @@ const TrackInfoAndActionBox = (props: Track) => {
     const userProfilePicture = useMusicImage({ baseImage: user.profile_picture["150x150"] ?? null, imageSize: '150x150' })
 
     const { playAction } = usePlayAction(props, id)
-    const { isSaved, setIsSaved } = useIsSaved(id, 'track')
+    const { isSaved } = useIsSaved(id, 'track')
 
     const savePayload: SavedTrackPayload = { image: artworkUrl, trackID: id, trackTitle: title, uploaderName: user.name }
+    const {saveTrack , removeSavedTrack} = useSaveAction()
 
     return (
         <>
@@ -73,7 +74,7 @@ const TrackInfoAndActionBox = (props: Track) => {
                         </div>
                         {/* action section */}
                         <div className="w-full sm:w-fit flex flex-col gap-3 items-center justify-center">
-                            <button onClick={isSaved ? () => removeSavedTrackHandler(savePayload, setIsSaved) : () => saveTrackHandler(savePayload, setIsSaved)} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-3 transition-[translate] duration-500">{isSaved ? <AiFillHeart className="size-4 xl:size-7" /> : <CiHeart className="size-4 xl:size-7" />}{isSaved ? `Unsave` : `Save`}</button>
+                            <button onClick={isSaved ? () => removeSavedTrack(id) : () => saveTrack(id)} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-3 transition-[translate] duration-500">{isSaved ? <AiFillHeart className="size-4 xl:size-7" /> : <CiHeart className="size-4 xl:size-7" />}{isSaved ? `Unsave` : `Save`}</button>
                             <button onClick={playAction} className="xl:text-[16px] flex items-center ps-5 gap-1 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-3 transition-[translate] duration-500 "><BsHeadphones className="size-4 xl:size-7" />Listen</button>
                             <Link href={`/api/tracks/${id}/stream`} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-3 transition-[translate] duration-500 "><FaDownload className="size-3 xl:size-6" />Download</Link>
                         </div>

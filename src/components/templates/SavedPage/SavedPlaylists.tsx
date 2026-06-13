@@ -10,7 +10,7 @@ import SpinnerLoading from '@/components/modules/Loadings/SpinnerLoading'
 const SavedPlaylists = () => {
 
     const { data , isPending , isError , refetch } = useSavedPlaylistsQuery()
-    const paginationProps = usePagination<SavedPlaylistPayload>(data, 4)
+    const paginationProps = usePagination<{ userID: string, playlistID: string | number }>(data, 4)
 
     return (
         <SavedBox paginationProps={paginationProps} sectionTitle="Saved Tracks">
@@ -26,7 +26,7 @@ const SavedPlaylists = () => {
                     <FaSadTear className='size-7 -mt-1' /> Fetching data failed! <button onClick={() => refetch()} className='text-(--hover-color) font-semibold'>Retry</button>
                 </div>
             }
-            {paginationProps.slicedList && paginationProps.slicedList.map(playlist => <SavedPlayListCard key={playlist.playlistID} {...playlist} />)}
+            {/* {paginationProps.slicedList && paginationProps.slicedList.map(playlist => <SavedPlayListCard key={playlist.playlistID} {...playlist} />)} */}
         </SavedBox>
     )
 }

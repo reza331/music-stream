@@ -1,9 +1,9 @@
 import useIsSaved from '@/hooks/useIsSaved'
+import useSaveAction from '@/hooks/useSaveAction'
 import { useAudioActions, useIsPlaying, useStreamUrl, useTrack } from '@/stores/audioStore'
-import { removeSavedTrackHandler, saveTrackHandler } from '@/utils/actions'
 import { formatTimer } from '@/utils/formatters/formatTimer'
 import Link from 'next/link'
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+import { AiFillHeart } from 'react-icons/ai'
 import { CgClose } from 'react-icons/cg'
 import { CiHeart } from 'react-icons/ci'
 import { FaDownload, FaPause, FaPlay } from 'react-icons/fa'
@@ -23,7 +23,8 @@ const Options = ({ exitHandler, currentTrackMinutes, currentTrackSecond, trackMi
     const streamUrl = useStreamUrl()
     const isPlaying = useIsPlaying()
     const { setPlaying } = useAudioActions()
-    const { isSaved, setIsSaved } = useIsSaved(track ? track.id : '', 'track')
+    const { isSaved } = useIsSaved(track ? track.id : '', 'track')
+    const {saveTrack , removeSavedTrack} = useSaveAction()
 
     return (
         <div className="h-full w-full flex justify-end items-center gap-4 lg:gap-10">
@@ -51,9 +52,9 @@ const Options = ({ exitHandler, currentTrackMinutes, currentTrackSecond, trackMi
                     track &&
                     <div className='cursor-pointer'>
                         {isSaved ? (
-                            <AiFillHeart onClick={() => removeSavedTrackHandler({ uploaderName: track.user.name, trackTitle: track.title, trackID: track.id, image: imageUrl }, setIsSaved)} className="size-4 lg:size-6 text-pink-500" />
+                            <AiFillHeart onClick={() => removeSavedTrack(track.id)} className="size-4 lg:size-6 text-pink-500" />
                         ) : (
-                            <CiHeart onClick={() => saveTrackHandler({ uploaderName: track.user.name, trackTitle: track.title, trackID: track.id, image: imageUrl }, setIsSaved)} className="size-4 lg:size-6 " />
+                            <CiHeart onClick={() => saveTrack(track.id)} className="size-4 lg:size-6 " />
                         )}
                     </div>
                 }

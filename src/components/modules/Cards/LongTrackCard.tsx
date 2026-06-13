@@ -1,6 +1,7 @@
 import useIsSaved from "@/hooks/useIsSaved"
 import useMusicImage from "@/hooks/useMusicImage"
 import usePlayAction from "@/hooks/usePlayAction"
+import useSaveAction from "@/hooks/useSaveAction"
 import { SavedTrackPayload } from "@/types/saved-list.type"
 import { Track } from "@/types/tracks.type"
 import { removeSavedTrackHandler, saveTrackHandler } from "@/utils/actions"
@@ -15,8 +16,9 @@ const LongTrackCard: FC<Track> = (props) => {
     const { id, artwork, title, user } = props
     const artworkUrl = useMusicImage({ baseImage: artwork["150x150"] ?? null, imageSize: '480x480' })
     const { playAction } = usePlayAction(props, id)
-    const { isSaved, setIsSaved } = useIsSaved(id, 'track')
+    const { isSaved } = useIsSaved(id, 'track')
     const savedFormat: SavedTrackPayload = { image: artworkUrl, trackID: id, trackTitle: title, uploaderName: user.name }
+    const {saveTrack , removeSavedTrack} = useSaveAction()
 
     return (
         <div className="w-full neu__norm rounded-3xl h-[150px] lg:h-[90px] gap-3 flex lg:flex-row flex-col px-10 py-3 lg:items-center lg:justify-between">
@@ -33,11 +35,11 @@ const LongTrackCard: FC<Track> = (props) => {
                     <CiPlay1 onClick={playAction} className="size-5 cursor-pointer" />
                 </button>
                 {isSaved ? (
-                    <button onClick={() => removeSavedTrackHandler(savedFormat, setIsSaved)} className="neu__norm flex items-center justify-center size-10 rounded-full">
+                    <button onClick={() => removeSavedTrack(id)} className="neu__norm flex items-center justify-center size-10 rounded-full">
                         <AiFillHeart className="size-4 lg:size-5 text-pink-500" />
                     </button>
                 ) : (
-                    <button onClick={() => saveTrackHandler(savedFormat, setIsSaved)} className="neu__norm flex items-center justify-center size-10 rounded-full">
+                    <button onClick={() => saveTrack(id)} className="neu__norm flex items-center justify-center size-10 rounded-full">
                         <CiHeart className="size-5 lg:size-6" />
                     </button>
                 )}

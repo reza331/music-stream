@@ -11,7 +11,7 @@ const SavedPlayListCard: FC<SavedPlaylistPayload> = (props) => {
 
     const { creatorName, image, playlistID, playlistName } = props
     const imgUrl = useMusicImage({ baseImage: image, imageSize: '150x150' })
-    const { isSaved, setIsSaved } = useIsSaved(playlistID, 'playlist')
+    const { isSaved } = useIsSaved(playlistID, 'playlist')
 
 
     return (
@@ -25,7 +25,7 @@ const SavedPlayListCard: FC<SavedPlaylistPayload> = (props) => {
             </div>
             <div className="flex gap-3 items-center">
                 <Link href={`/playlists/${playlistID}`} className="neu__norm py-2 px-5 block rounded-xl">View</Link>
-                {isSaved ? (
+                {/* {isSaved ? (
                     <button onClick={() => removeSavedPlaylistHandler(props, setIsSaved)} className="neu__norm flex items-center justify-center p-2 rounded-full">
                         <AiFillHeart className="size-4 lg:size-5 text-pink-400" />
                     </button>
@@ -33,7 +33,7 @@ const SavedPlayListCard: FC<SavedPlaylistPayload> = (props) => {
                     <button onClick={() => savePlaylistHandler(props, setIsSaved)} className="neu__norm flex items-center justify-center p-2 rounded-full">
                         <CiHeart className="size-3 lg:size-5" />
                     </button>
-                )}
+                )} */}
             </div>
         </div>
     )
