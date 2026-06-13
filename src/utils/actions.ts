@@ -5,7 +5,7 @@ import { saveTrack } from "@/axios/saveTrack"
 import { SavedPlaylistPayload, SavedTrackPayload } from "@/types/saved-list.type"
 import { Dispatch, SetStateAction } from "react"
 
-export const saveTrackHandler = async (target: SavedTrackPayload, setIsSaved: Dispatch<SetStateAction<boolean>>) => {
+export const saveTrackHandler = async (target: any, setIsSaved: Dispatch<SetStateAction<boolean>>) => {
     const res = await saveTrack(target)
     if (res.status === 201) {
         setIsSaved(true)
@@ -13,7 +13,7 @@ export const saveTrackHandler = async (target: SavedTrackPayload, setIsSaved: Di
 }
 
 
-export const removeSavedTrackHandler = async (target: SavedTrackPayload, setIsSaved: Dispatch<SetStateAction<boolean>>) => {
+export const removeSavedTrackHandler = async (target: any, setIsSaved: Dispatch<SetStateAction<boolean>>) => {
     const res = await deleteSavedTrack(target)
     if (res.status === 200) {
         setIsSaved(false)
@@ -21,7 +21,7 @@ export const removeSavedTrackHandler = async (target: SavedTrackPayload, setIsSa
 }
 
 
-export const savePlaylistHandler = async (target: SavedPlaylistPayload, setIsSaved: Dispatch<SetStateAction<boolean>>) => {
+export const savePlaylistHandler = async (target: any, setIsSaved: Dispatch<SetStateAction<boolean>>) => {
     const res = await savePlaylist(target)
     if (res.status === 201) {
         setIsSaved(true)
@@ -30,7 +30,7 @@ export const savePlaylistHandler = async (target: SavedPlaylistPayload, setIsSav
 
 
 
-export const removeSavedPlaylistHandler = async (target: SavedPlaylistPayload, setIsSaved: Dispatch<SetStateAction<boolean>>) => {
+export const removeSavedPlaylistHandler = async (target: any, setIsSaved: Dispatch<SetStateAction<boolean>>) => {
     const res = await deleteSavedPlaylist(target)
     if (res.status === 200) {
         setIsSaved(false)
