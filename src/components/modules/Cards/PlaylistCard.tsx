@@ -1,8 +1,7 @@
 import useIsSaved from "@/hooks/useIsSaved"
 import useMusicImage from "@/hooks/useMusicImage"
+import useSaveAction from "@/hooks/useSaveAction"
 import { Playlist } from "@/types/playlist.type"
-import { SavedPlaylistPayload } from "@/types/saved-list.type"
-import { removeSavedPlaylistHandler, savePlaylistHandler } from "@/utils/actions"
 import Link from "next/link"
 import { FC } from "react"
 import { AiFillHeart, AiOutlineUser } from "react-icons/ai"
@@ -10,12 +9,12 @@ import { CiHeart } from "react-icons/ci"
 
 const PlaylistCard: FC<Playlist> = ({ id, playlist_name, user, artwork }) => {
 
-    const { isSaved, setIsSaved } = useIsSaved(id, 'playlist')
+    const { isSaved } = useIsSaved(id, 'playlist')
 
     const artWorkImage = useMusicImage({ baseImage: artwork && artwork["150x150"], imageSize: '150x150' })
     const userProfileImage = useMusicImage({ baseImage: user.profile_picture && user.profile_picture["150x150"], imageSize: '150x150' })
 
-    const payloadFormat: SavedPlaylistPayload = { playlistID: id, creatorName: user.name, image: artWorkImage, playlistName: playlist_name }
+    const { savePlaylist, removeSavedPlaylist } = useSaveAction()
 
     return (
         <div className="select-none w-[150px] h-[250px] lg:w-[200px] lg:h-[300px] rounded-2xl flex flex-col hover:scale-[1.03] transition-transform duration-500">
@@ -23,12 +22,12 @@ const PlaylistCard: FC<Playlist> = ({ id, playlist_name, user, artwork }) => {
                 <div className="absolute bottom-0 z-30 p-3">
                     {
                         isSaved ? (
-                            <div onClick={() => removeSavedPlaylistHandler(payloadFormat, setIsSaved)} className="w-fit p-1.5 cursor-pointer bg-[#00000021] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[10px] text-white">
-                                <AiFillHeart  className="size-3 lg:size-4 text-rose-500" />
+                            <div onClick={() => removeSavedPlaylist(id)} className="w-fit p-1.5 cursor-pointer bg-[#00000021] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[10px] text-white">
+                                <AiFillHeart className="size-3 lg:size-4 text-rose-500" />
                             </div>
                         ) : (
-                            <div onClick={() => savePlaylistHandler(payloadFormat, setIsSaved)} className="w-fit p-1.5 cursor-pointer bg-[#00000021] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[10px] text-white">
-                                <CiHeart  className="size-3 lg:size-4" />
+                            <div onClick={() => savePlaylist(id)} className="w-fit p-1.5 cursor-pointer bg-[#00000021] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[10px] text-white">
+                                <CiHeart className="size-3 lg:size-4" />
                             </div>
                         )
                     }

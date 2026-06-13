@@ -1,10 +1,8 @@
 import useIsSaved from "@/hooks/useIsSaved"
 import useMusicImage from "@/hooks/useMusicImage"
 import usePlayAction from "@/hooks/usePlayAction"
-import { SavedTrackPayload } from "@/types/saved-list.type"
+import useSaveAction from "@/hooks/useSaveAction"
 import { Track } from "@/types/tracks.type"
-import { removeSavedTrackHandler, saveTrackHandler } from "@/utils/actions"
-import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { FC, memo } from "react"
 import { AiFillHeart, AiOutlineUser } from "react-icons/ai"
@@ -16,25 +14,26 @@ const TrackCard: FC<Track> = (props) => {
 
     const { id, title, user, artwork, genre } = props
 
-    const { isSaved, setIsSaved } = useIsSaved(id, 'track')
+    const { isSaved } = useIsSaved(id, 'track')
 
     const artWorkImage = useMusicImage({ baseImage: artwork && artwork["150x150"], imageSize: '150x150' })
     const userProfileImage = useMusicImage({ baseImage: user.profile_picture && user.profile_picture["150x150"], imageSize: '150x150' })
 
     const { playAction } = usePlayAction(props, id)
 
-    const payloadFormat: SavedTrackPayload = { trackID: id, uploaderName: user.name, image: artWorkImage, trackTitle: title }
+    const {saveTrack , removeSavedTrack} = useSaveAction()
+
 
     return (
         <div className="select-none w-[150px] h-[250px] lg:w-[200px] lg:h-[300px] rounded-2xl flex flex-col hover:scale-[1.03] transition-transform duration-500">
             <div className="size-[150px] lg:size-[200px] rounded-t-2xl relative overflow-hidden">
                 <div className="absolute bottom-0 z-30 w-full p-2 flex items-center gap-2">
                     {isSaved ? (
-                        <div onClick={() => removeSavedTrackHandler(payloadFormat, setIsSaved)} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
+                        <div onClick={() => removeSavedTrack(id)} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
                             <AiFillHeart className="size-3 lg:size-4 text-rose-500" />
                         </div>
                     ) : (
-                        <div onClick={() => saveTrackHandler(payloadFormat, setIsSaved)} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
+                        <div onClick={() => saveTrack(id)} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
                             <CiHeart className="size-3 lg:size-4" />
                         </div>
                     )}

@@ -1,33 +1,31 @@
-import { useEffect, useState } from "react"
+import { useMemo } from "react"
 import useSavedPlaylistsQuery from "./queryHooks/useSavedPlaylistsQuery"
 import useSavedTracksQuery from "./queryHooks/useSavedTracksQuery"
 
-const useIsSaved = (targetID: string | number, targetType: 'playlist' | 'track') => {
-
-    const [isSaved, setIsSaved] = useState(false)
+const useIsSaved = (
+    targetID: string | number,
+    targetType: 'playlist' | 'track'
+) => {
 
     const { data: savedPlaylistsData } = useSavedPlaylistsQuery()
-    const { data: savedTacksData } = useSavedTracksQuery()
+    const { data: savedTracksData } = useSavedTracksQuery()
 
-    useEffect(() => {
+    const savedPlaylistIds = useMemo(
+        () => new Set(savedPlaylistsData?.map(item => item.playlistID) ?? []),
+        [savedPlaylistsData]
+    )
 
-        if (savedPlaylistsData && targetType === 'playlist') {
-            const isAvailable = savedPlaylistsData.some(item => item.playlistID === targetID)
-            if (isAvailable) {
-                setIsSaved(true)
-            }
-        }
+    const savedTrackIds = useMemo(
+        () => new Set(savedTracksData?.map(item => item.trackID) ?? []),
+        [savedTracksData]
+    )
 
-        if (savedTacksData && targetType === 'track') {
-            const isAvailable = savedTacksData.some(item => item.trackID === targetID)
-            if (isAvailable) {
-                setIsSaved(true)
-            }
-        }
+    const isSaved =
+        targetType === 'playlist'
+            ? savedPlaylistIds.has(String(targetID))
+            : savedTrackIds.has(String(targetID))
 
-    }, [savedPlaylistsData, savedTacksData, targetID, targetType])
-
-    return { isSaved, setIsSaved }
+    return { isSaved }
 }
 
 export default useIsSaved

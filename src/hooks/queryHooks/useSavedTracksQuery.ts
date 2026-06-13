@@ -1,4 +1,3 @@
-import { SavedTrackPayload } from "@/types/saved-list.type"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useSession } from "next-auth/react"
@@ -18,7 +17,7 @@ const useSavedTracksQuery = () => {
         }
     }
 
-    return useQuery<SavedTrackPayload[]>({
+    return useQuery<{ userID: string, trackID: string | number }[]>({
         queryKey: ['saved-tracks'],
         queryFn: getSavedTracks,
         enabled: status === 'authenticated'

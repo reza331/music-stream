@@ -1,7 +1,7 @@
 export interface Playlist {
-    id: string;
+    id: string | number;
     playlist_name: string;
-    description:string | null;
+    description: string | null;
     artwork: {
         "150x150": string;
         "480x480": string;

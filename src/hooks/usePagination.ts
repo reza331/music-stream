@@ -17,7 +17,6 @@ const usePagination = <T>(list: T[] | undefined, itemPerPage: number) => {
         }
     }, [list, currentPage])
 
-
     return { slicedList, currentPage, setCurrentPage, totalPage }
 
 }

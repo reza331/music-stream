@@ -1,4 +1,4 @@
-import { checkAlreadySaved, checkSavedLimit, checkTrackExist, getPagedList } from "@/lib/saved-item.service";
+import { checkAlreadySaved, checkSavedLimit, checkTrackExist } from "@/lib/saved-item.service";
 import { savedTracksModel } from "@/models/savedTrack";
 import { getNextAuthSession } from "@/utils/api/getNextAuthSession";
 import dbConnect from "@/utils/database/dbConnect";
@@ -50,10 +50,7 @@ export async function GET(req: NextRequest) {
 
         await dbConnect()
 
-        const { searchParams } = new URL(req.url)
-        const page = Number(searchParams.get('page')) || 1
-
-        const savedList = await getPagedList(savedTracksModel, session.user.id, page)
+        const savedList = await savedTracksModel.find({ userID: session.user.id })
 
         return Response.json(savedList, { status: 200 })
 

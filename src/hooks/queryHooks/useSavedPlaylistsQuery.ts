@@ -1,4 +1,3 @@
-import { SavedPlaylistPayload } from "@/types/saved-list.type"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useSession } from "next-auth/react"
@@ -18,7 +17,7 @@ const useSavedPlaylistsQuery = () => {
         }
     }
 
-    return useQuery<SavedPlaylistPayload[]>({
+    return useQuery<{ userID: string, playlistID: string | number }[]>({
         queryKey: ['saved-playlists'],
         queryFn: getSavedPlaylist,
         enabled: status === 'authenticated'

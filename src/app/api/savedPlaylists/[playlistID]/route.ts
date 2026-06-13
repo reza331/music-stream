@@ -1,21 +1,21 @@
-import { savedTracksModel } from "@/models/savedTrack"
+import { savedPlaylistsModel } from "@/models/savedPlaylist"
 import { getNextAuthSession } from "@/utils/api/getNextAuthSession"
 import dbConnect from "@/utils/database/dbConnect"
 import { NextRequest } from "next/server"
 
-export async function DELETE(req: NextRequest, { params }: { params: Promise<{ trackID: string }> }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ playlistID: string }> }) {
 
     try {
 
         const session = await getNextAuthSession()
 
-        const { trackID } = await params
+        const { playlistID } = await params
 
         if (!session) return Response.json({ msg: 'unauthorized' }, { status: 401 })
 
         await dbConnect()
 
-        const deleted = await savedTracksModel.findOneAndDelete({ trackID, userID: session.user.id })
+        const deleted = await savedPlaylistsModel.findOneAndDelete({ playlistID, userID: session.user.id })
 
         if (!deleted) return Response.json({ msg: 'Item not found' }, { status: 404 })
 
