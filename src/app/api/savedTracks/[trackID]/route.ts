@@ -15,7 +15,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ trac
 
         await dbConnect()
 
-        const track = savedTracksModel.findOne({ trackID })
+        const track = await savedTracksModel.findOne({ trackID })
 
         if (!track) return Response.json({ msg: 'Item not found' }, { status: 404 })
 
