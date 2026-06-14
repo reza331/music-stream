@@ -1,3 +1,4 @@
+import SpinnerLoading from "@/components/modules/Loadings/SpinnerLoading"
 import useIsSaved from "@/hooks/useIsSaved"
 import useMusicImage from "@/hooks/useMusicImage"
 import usePlayAction from "@/hooks/usePlayAction"
@@ -23,9 +24,7 @@ const TrackInfoAndActionBox = (props: Track) => {
 
     const { playAction } = usePlayAction(props, id)
     const { isSaved } = useIsSaved(id, 'track')
-
-    const savePayload: SavedTrackPayload = { image: artworkUrl, trackID: id, trackTitle: title, uploaderName: user.name }
-    const {saveTrack , removeSavedTrack} = useSaveAction()
+    const { isLoading, saveTrack, removeSavedTrack } = useSaveAction()
 
     return (
         <>
@@ -61,7 +60,7 @@ const TrackInfoAndActionBox = (props: Track) => {
                             <div className="hidden grow sm:block w-[calc(100%-150px)] neu__norm rounded-2xl p-5 overflow-y-auto">
                                 {
                                     description ? (
-                                        <div onClick={()=>setDescExtended(!descExtended)} className={`text-(--alt-text) text-[14px] cursor-pointer ${descExtended ? "" : "line-clamp-6"}`}>
+                                        <div onClick={() => setDescExtended(!descExtended)} className={`text-(--alt-text) text-[14px] cursor-pointer ${descExtended ? "" : "line-clamp-6"}`}>
                                             <span className="font-semibold">Description :</span> {description}
                                         </div>
                                     ) : (
@@ -74,16 +73,24 @@ const TrackInfoAndActionBox = (props: Track) => {
                         </div>
                         {/* action section */}
                         <div className="w-full sm:w-fit flex flex-col gap-3 items-center justify-center">
-                            <button onClick={isSaved ? () => removeSavedTrack(id) : () => saveTrack(id)} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-3 transition-[translate] duration-500">{isSaved ? <AiFillHeart className="size-4 xl:size-7" /> : <CiHeart className="size-4 xl:size-7" />}{isSaved ? `Unsave` : `Save`}</button>
-                            <button onClick={playAction} className="xl:text-[16px] flex items-center ps-5 gap-1 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-3 transition-[translate] duration-500 "><BsHeadphones className="size-4 xl:size-7" />Listen</button>
-                            <Link href={`/api/tracks/${id}/stream`} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-3 transition-[translate] duration-500 "><FaDownload className="size-3 xl:size-6" />Download</Link>
+                            {
+                                isLoading && <div className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-1 transition-[translate] duration-500">
+                                    <SpinnerLoading withText={true} text="loading" className="size-4" />
+                                </div>
+                            }
+                            {
+                                !isLoading &&
+                                <button onClick={isSaved ? () => removeSavedTrack(id) : () => saveTrack(id)} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-2 transition-[translate] duration-500">{isSaved ? <AiFillHeart className="size-4 xl:size-7" /> : <CiHeart className="size-4 xl:size-7" />}{isSaved ? `Unsave` : `Save`}</button>
+                            }
+                            <button onClick={playAction} className="xl:text-[16px] flex items-center ps-5 gap-1 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-2 transition-[translate] duration-500 "><BsHeadphones className="size-4 xl:size-7" />Listen</button>
+                            <Link target="_blank" href={`/api/tracks/${id}/stream`} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-2 transition-[translate] duration-500 "><FaDownload className="size-3 xl:size-6" />Download</Link>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
             {
                 description ? (
-                    <div onClick={() => setDescExtended(!descExtended)} className="block sm:hidden h-fit text-(--alt-text) neu__norm rounded-2xl p-5 text-[12px] lg:text-[14px]"><div className="font-semibold">Description: </div> <p className={descExtended ? "" : "line-clamp-6"}>{description}</p></div>
+                    <div onClick={() => setDescExtended(!descExtended)} className="block sm:hidden h-fit text-(--alt-text) neu__norm rounded-2xl p-5 text-[12px] lg:text-[14px]" ><div className="font-semibold">Description: </div> <p className={descExtended ? "" : "line-clamp-6"}>{description}</p></div >
                 ) : (
                     <div className="sm:hidden h-[100px] w-full grow text-(--alt-text) neu__norm rounded-2xl flex items-center justify-center gap-2 text-lg"><BsFillClipboardXFill className="size-7 mb-2" />No description Written</div>
                 )

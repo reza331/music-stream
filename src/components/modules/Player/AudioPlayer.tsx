@@ -27,7 +27,7 @@ const AudioPlayer = ({ openClass }: any) => {
 
   return (
     <div className={`${openClass} ${!playerVisible && `translate-y-full`} absolute bottom-0 end-0 z-50 h-[110px] lg:h-[90px] py-3 px-5 lg:px-10 transition-transform duration-500`}>
-      <div className="py-3 px-4 lg:px-7 rounded-3xl lg:rounded-full relative grid grid-cols-[140px_1fr] lg:flex lg:items-center lg:justify-between lg:gap-5 duration-500 select-none w-full h-full bg-(--main-bg) border-[3px] border-(--alt-text)">
+      {<div className="py-3 px-4 lg:px-7 rounded-3xl lg:rounded-full relative grid grid-cols-[140px_1fr] lg:flex lg:items-center lg:justify-between lg:gap-5 duration-500 select-none w-full h-full bg-(--main-bg) border-[3px] border-(--alt-text)">
         {/* Audio tag */}
         {streamUrl && <audio onTimeUpdate={playerHandler} ref={audioRef} className="hidden" src={streamUrl}></audio>}
         {/* Track info */}
@@ -44,7 +44,7 @@ const AudioPlayer = ({ openClass }: any) => {
         </div>
         {/* blur layer */}
         <div className="h-[60px] w-full absolute backdrop-blur-sm -bottom-10 start-0 -z-10" />
-      </div>
+      </div>}
     </div>
   )
 }

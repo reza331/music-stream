@@ -15,7 +15,7 @@ const ProfileSection = () => {
                     <img className="size-[47px] rounded-full" src={data?.user?.image?.toString()} alt="" />
                     <div className={`w-full me-3 ${isSideBarCollapse ? 'hidden' : 'block'}`}>
                         <div className="font-semibold text-[12px] line-clamp-1 w-full">{data?.user?.name}</div>
-                        <div className="text-[10px] line-clamp-1 text-(--alt-text) w-full">{data?.user?.email}</div>
+                        <div className="text-[8px] line-clamp-1 text-(--alt-text) w-full">{data?.user?.email}</div>
                     </div>
                 </div>
             }

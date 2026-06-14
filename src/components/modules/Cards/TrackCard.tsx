@@ -7,8 +7,7 @@ import Link from "next/link"
 import { FC, memo } from "react"
 import { AiFillHeart, AiOutlineUser } from "react-icons/ai"
 import { CiHeart, CiPlay1 } from "react-icons/ci"
-
-
+import SpinnerLoading from "../Loadings/SpinnerLoading"
 
 const TrackCard: FC<Track> = (props) => {
 
@@ -21,22 +20,27 @@ const TrackCard: FC<Track> = (props) => {
 
     const { playAction } = usePlayAction(props, id)
 
-    const {saveTrack , removeSavedTrack} = useSaveAction()
-
+    const { isLoading, saveTrack, removeSavedTrack } = useSaveAction()
 
     return (
         <div className="select-none w-[150px] h-[250px] lg:w-[200px] lg:h-[300px] rounded-2xl flex flex-col hover:scale-[1.03] transition-transform duration-500">
             <div className="size-[150px] lg:size-[200px] rounded-t-2xl relative overflow-hidden">
                 <div className="absolute bottom-0 z-30 w-full p-2 flex items-center gap-2">
-                    {isSaved ? (
-                        <div onClick={() => removeSavedTrack(id)} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
+                    {
+                        isLoading && <div className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
+                            <SpinnerLoading borderWidth={2} withText={false} className="size-3 lg:size-4" />
+                        </div>
+                    }
+                    {
+                        (isSaved && !isLoading) && <div onClick={() => removeSavedTrack(id)} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
                             <AiFillHeart className="size-3 lg:size-4 text-rose-500" />
                         </div>
-                    ) : (
-                        <div onClick={() => saveTrack(id)} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
+                    }
+                    {
+                        (!isSaved && !isLoading) && <div onClick={() => saveTrack(id)} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
                             <CiHeart className="size-3 lg:size-4" />
                         </div>
-                    )}
+                    }
                     <div onClick={playAction} className="w-fit p-1.5 cursor-pointer bg-[#00000041] rounded-full border-2 border-[#ffffff2e] backdrop-blur-[5px] text-white">
                         <CiPlay1 className="size-3 lg:size-4" />
                     </div>

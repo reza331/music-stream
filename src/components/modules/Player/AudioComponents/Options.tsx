@@ -7,6 +7,7 @@ import { AiFillHeart } from 'react-icons/ai'
 import { CgClose } from 'react-icons/cg'
 import { CiHeart } from 'react-icons/ci'
 import { FaDownload, FaPause, FaPlay } from 'react-icons/fa'
+import SpinnerLoading from '../../Loadings/SpinnerLoading'
 
 interface OptionProps {
     imageUrl: string | null
@@ -24,7 +25,7 @@ const Options = ({ exitHandler, currentTrackMinutes, currentTrackSecond, trackMi
     const isPlaying = useIsPlaying()
     const { setPlaying } = useAudioActions()
     const { isSaved } = useIsSaved(track ? track.id : '', 'track')
-    const {saveTrack , removeSavedTrack} = useSaveAction()
+    const { isLoading, saveTrack, removeSavedTrack } = useSaveAction()
 
     return (
         <div className="h-full w-full flex justify-end items-center gap-4 lg:gap-10">
@@ -51,11 +52,16 @@ const Options = ({ exitHandler, currentTrackMinutes, currentTrackSecond, trackMi
                 {
                     track &&
                     <div className='cursor-pointer'>
-                        {isSaved ? (
-                            <AiFillHeart onClick={() => removeSavedTrack(track.id)} className="size-4 lg:size-6 text-pink-500" />
-                        ) : (
-                            <CiHeart onClick={() => saveTrack(track.id)} className="size-4 lg:size-6 " />
-                        )}
+                        {
+                            isLoading && <SpinnerLoading className='size-4' />
+                        }
+                        {
+                            (isSaved && !isLoading) && <AiFillHeart onClick={() => removeSavedTrack(track.id)} className="size-4 lg:size-6 text-rose-500" />
+                        }
+                        {
+                            (!isSaved && !isLoading) && <CiHeart onClick={() => saveTrack(track.id)} className="size-4 lg:size-6 " />
+
+                        }
                     </div>
                 }
                 {/* download */}

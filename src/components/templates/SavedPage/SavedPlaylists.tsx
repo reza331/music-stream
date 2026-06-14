@@ -26,7 +26,7 @@ const SavedPlaylists = () => {
                     <FaSadTear className='size-7 -mt-1' /> Fetching data failed! <button onClick={() => refetch()} className='text-(--hover-color) font-semibold'>Retry</button>
                 </div>
             }
-            {/* {paginationProps.slicedList && paginationProps.slicedList.map(playlist => <SavedPlayListCard key={playlist.playlistID} {...playlist} />)} */}
+            {paginationProps.slicedList && paginationProps.slicedList.map(playlist => <SavedPlayListCard key={playlist.playlistID} {...playlist} />)}
         </SavedBox>
     )
 }

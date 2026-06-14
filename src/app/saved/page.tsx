@@ -20,7 +20,7 @@ const SavedPage = () => {
     return (
         <div className="flex flex-col gap-5">
             <SavedTracks />
-            {/* <SavedPlaylists /> */}
+            <SavedPlaylists />
         </div>
     )
 }
