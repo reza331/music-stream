@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, { params }: any) {
         const res = await mainApi.get(`/tracks/${trackID}/stream`, {
             responseType: "stream",
             headers: {
-                Range: range, 
+                Range: range,
             },
         });
 
@@ -17,9 +17,9 @@ export async function GET(req: NextRequest, { params }: any) {
             status: res.status === 206 ? 206 : 200,
             headers: {
                 "Content-Type": "audio/mpeg",
-                "Content-Length": res.headers["content-length"] || "",
+                "Content-Length": String(res.headers["content-length"] ?? ""),
                 "Accept-Ranges": "bytes",
-                "Content-Range": res.headers["content-range"] || "",
+                "Content-Range": String(res.headers["content-range"] ?? ""),
             },
         });
     } catch (err) {
