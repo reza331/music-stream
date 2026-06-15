@@ -5,11 +5,11 @@ import PlaylistsPageContainer from '@/components/templates/PlaylistsPage/Playlis
 import { tracksPageFilterOptions } from '@/contents/reactSelectOptions'
 import { Playlist } from '@/types/playlist.type'
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { CgPlayList } from 'react-icons/cg'
 import { FaSlidersH } from 'react-icons/fa'
 
-const PlaylistsPage = () => {
+const PlaylistsPageContent = () => {
 
     const sort = useSearchParams().get('sort')
     const [playlists, setPlaylists] = useState<Playlist[]>([])
@@ -20,7 +20,7 @@ const PlaylistsPage = () => {
             <PageTitleSection icon={CgPlayList} title='Playlists' description='Browse playlists by trending , popular or recent' >
                 <SelectInput
                     onChangeHandler={(selected) => {
-                        if(selected.value === filterValue) return
+                        if (selected.value === filterValue) return
                         setPlaylists([])
                         setFilterValue(selected.value)
                     }}
@@ -39,4 +39,10 @@ const PlaylistsPage = () => {
     )
 }
 
-export default PlaylistsPage
+export default function PlaylistsPage() {
+    return (
+        <Suspense>
+            <PlaylistsPageContent />
+        </Suspense>
+    )
+}

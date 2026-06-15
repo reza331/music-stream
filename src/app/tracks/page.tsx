@@ -5,12 +5,12 @@ import TracksPageTracksContainer from "@/components/templates/TracksPage/TracksP
 import { tracksPageFilterOptions } from "@/contents/reactSelectOptions"
 import { Track } from "@/types/tracks.type"
 import { useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { FaSlidersH } from "react-icons/fa"
 import { IoMdMusicalNote } from "react-icons/io"
 
 
-const TrackPage = () => {
+const TrackPageContent = () => {
     const genre = useSearchParams().get('genre')
     const sort = useSearchParams().get('sort')
     const [tracks, setTracks] = useState<Track[]>([])
@@ -41,4 +41,12 @@ const TrackPage = () => {
     )
 }
 
-export default TrackPage
+export default function TrackPage() {
+    return (
+        <Suspense>
+            <TrackPageContent />
+        </Suspense>
+    )
+}
+
+
