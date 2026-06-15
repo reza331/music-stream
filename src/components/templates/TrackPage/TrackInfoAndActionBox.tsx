@@ -80,7 +80,7 @@ const TrackInfoAndActionBox = (props: Track) => {
                             }
                             {
                                 !isLoading &&
-                                <button onClick={isSaved ? () => removeSavedTrack(id) : () => saveTrack(id)} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-2 transition-[translate] duration-500">{isSaved ? <AiFillHeart className="size-4 xl:size-7" /> : <CiHeart className="size-4 xl:size-7" />}{isSaved ? `Unsave` : `Save`}</button>
+                                <button onClick={isSaved ? () => removeSavedTrack(id) : () => saveTrack(id)} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-1 transition-[translate] duration-500">{isSaved ? <AiFillHeart className="size-4 xl:size-7" /> : <CiHeart className="size-4 xl:size-7" />}{isSaved ? `Unsave` : `Save`}</button>
                             }
                             <button onClick={playAction} className="xl:text-[16px] flex items-center ps-5 gap-1 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-2 transition-[translate] duration-500 "><BsHeadphones className="size-4 xl:size-7" />Listen</button>
                             <Link target="_blank" href={`/api/tracks/${id}/stream`} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-2 transition-[translate] duration-500 "><FaDownload className="size-3 xl:size-6" />Download</Link>

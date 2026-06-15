@@ -1,13 +1,27 @@
 import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
+import { signIn, useSession } from 'next-auth/react'
 import { useState } from 'react'
 
 const useSaveAction = () => {
 
     const queryClient = useQueryClient()
     const [isLoading, setIsLoading] = useState(false)
+    const { status } = useSession()
+
+
+    const checkAuthStatus = async () => {
+        if (status === 'unauthenticated') {
+            await signIn('google', { prompt: "select_account" })
+        } else {
+            return false
+        }
+    }
+
 
     const saveTrack = async (trackID: string | number) => {
+        const auth = await checkAuthStatus()
+        if(!auth) return
         setIsLoading(true)
         const res = await axios.post(`/api/savedTracks`, { trackID })
         if (res.status === 201) queryClient.invalidateQueries({ queryKey: ['saved-tracks'] })
@@ -17,6 +31,7 @@ const useSaveAction = () => {
     }
 
     const savePlaylist = async (playlistID: string | number) => {
+        checkAuthStatus()
         setIsLoading(true)
         const res = await axios.post(`/api/savedPlaylists`, { playlistID })
         if (res.status === 201) queryClient.invalidateQueries({ queryKey: ['saved-playlists'] })
@@ -26,6 +41,7 @@ const useSaveAction = () => {
     }
 
     const removeSavedTrack = async (trackID: string | number) => {
+        checkAuthStatus()
         setIsLoading(true)
         const res = await axios.delete(`/api/savedTracks/${trackID}`)
         if (res.status === 200) queryClient.invalidateQueries({ queryKey: ['saved-tracks'] })
@@ -34,6 +50,7 @@ const useSaveAction = () => {
         return res
     }
     const removeSavedPlaylist = async (playlistID: string | number) => {
+        checkAuthStatus()
         setIsLoading(true)
         const res = await axios.delete(`/api/savedPlaylists/${playlistID}`)
         if (res.status === 200) queryClient.invalidateQueries({ queryKey: ['saved-playlists'] })
@@ -42,7 +59,7 @@ const useSaveAction = () => {
         return res
     }
 
-    return { isLoading, saveTrack, savePlaylist , removeSavedPlaylist , removeSavedTrack }
+    return { isLoading, saveTrack, savePlaylist, removeSavedPlaylist, removeSavedTrack }
 
 }
 

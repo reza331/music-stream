@@ -1,11 +1,15 @@
 'use client'
+import { useSession } from "next-auth/react";
 import LoginLogoutArea from "../Controls/LoginLogout";
 import ThemeToggle from "../Controls/ThemeToggle";
 import { useSideBarStore } from "@/stores/sideBarStore";
 
 const ControlSection = () => {
 
+  const { status } = useSession()
   const { isSideBarCollapse } = useSideBarStore()
+
+  if (status === 'loading') return null
 
   return (
     <div className={`${isSideBarCollapse ? 'flex-col py-3 gap-3' : 'flex-row p-5 gap-5'} neu__inner  rounded-3xl w-full flex items-center justify-center`}>
