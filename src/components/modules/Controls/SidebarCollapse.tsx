@@ -1,10 +1,11 @@
 'useClient'
-import { useSideBarStore } from "@/stores/sideBarStore";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useIsSideBarCollapse, useSidebarActions } from "@/stores/sideBarStore";
+import { IoIosArrowBack } from "react-icons/io";
 
 const SidbarCollapse = () => {
 
-    const { isSideBarCollapse, toggleCollapse } = useSideBarStore()
+    const { toggleCollapse } = useSidebarActions()
+    const isSideBarCollapse = useIsSideBarCollapse()
 
     return (
         <button onClick={toggleCollapse} className="neu__norm p-2 rounded-full transition-[background-color,scale] duration-500 hover:bg-(--hover-color) hover:scale-[1.2] hover:text-white cursor-pointer">

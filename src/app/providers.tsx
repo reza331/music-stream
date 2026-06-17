@@ -4,13 +4,10 @@ import MainLayout from '@/components/MainLayout'
 import { ThemeProvider, useTheme } from 'next-themes'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
-import NextTopLoader from 'nextjs-toploader';
-
 
 const Providers: FC<PropsWithChildren> = ({ children }) => {
 
     const [client] = useState(() => new QueryClient());
-    const { theme } = useTheme()
 
     return (
 

@@ -2,12 +2,12 @@ import { DropDownType } from "@/contents/sidebarContent"
 import { FC, useState } from "react"
 import SideBarSingleItem from "./SideBarSingleItem"
 import { IoIosArrowDown } from "react-icons/io";
-import { useSideBarStore } from "@/stores/sideBarStore";
+import { useIsSideBarCollapse } from "@/stores/sideBarStore";
 
 const SidbarDropDown: FC<DropDownType> = ({ text, icon: Icon, options }) => {
 
     const [dropOpen, setDropOpen] = useState<boolean>(false)
-    const { isSideBarCollapse } = useSideBarStore()
+    const  isSideBarCollapse  = useIsSideBarCollapse()
 
     return (
         <div>

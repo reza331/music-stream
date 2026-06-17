@@ -3,7 +3,7 @@ import ProfileSection from "./ProfileSection";
 import LoginLogoutArea from "../Controls/LoginLogout";
 import ThemeToggle from "../Controls/ThemeToggle";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useSideBarStore } from "@/stores/sideBarStore";
+import { useSidebarActions } from "@/stores/sideBarStore";
 import SearchSection from "./SearchSection";
 import { useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
@@ -11,7 +11,7 @@ import SearchMobile from "./SearchMobile";
 
 export default function Header() {
 
-  const { setSideBarOpen } = useSideBarStore()
+  const { setSideBarOpen } = useSidebarActions()
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
 
   return (

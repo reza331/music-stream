@@ -1,16 +1,19 @@
 'use client'
 import NavigateSection from "./NavigateSection"
 import SidbarCollapse from "../Controls/SidebarCollapse";
-import { useSideBarStore } from "@/stores/sideBarStore";
 import SidebarClose from "../Controls/SideBarClose";
 import ControlSection from "./ControlSection";
 import Clock from "../Clock/Clock";
 import SimpleBar from "simplebar-react";
 import ProfileSection from "./ProfileSection";
+import { useIsSideBarCollapse, useIsSideBarOpen, useSidebarActions } from "@/stores/sideBarStore";
 
 const SideBar = () => {
 
-    const { isSideBarCollapse, isSideBarOpen, setSideBarOpen } = useSideBarStore()
+    const {setSideBarOpen} = useSidebarActions()
+    const isSideBarOpen = useIsSideBarOpen()
+    const isSideBarCollapse = useIsSideBarCollapse()
+   
 
     return (
         <>

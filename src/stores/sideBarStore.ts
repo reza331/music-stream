@@ -5,14 +5,23 @@ interface SideBarStore {
     isSideBarCollapse: boolean,
     isSideBarOpen: boolean,
     isMobile: boolean,
-    setSideBarOpen: (value: boolean) => void,
-    toggleCollapse: () => void,
+    actions: {
+        setSideBarOpen: (value: boolean) => void,
+        toggleCollapse: () => void,
+    }
 }
 
-export const useSideBarStore = create<SideBarStore>((set) => ({
+const useSideBarStore = create<SideBarStore>((set) => ({
     isSideBarCollapse: false,
-    toggleCollapse: () => set((state) => ({ isSideBarCollapse: !state.isSideBarCollapse })),
     isMobile: getViewPortWidth() < 1024 ? true : false,
     isSideBarOpen: false,
-    setSideBarOpen: (newValue) => set(() => ({ isSideBarOpen: newValue }))
+    actions: {
+        toggleCollapse: () => set((state) => ({ isSideBarCollapse: !state.isSideBarCollapse })),
+        setSideBarOpen: (newValue) => set(() => ({ isSideBarOpen: newValue }))
+    }
 }))
+
+export const useIsSideBarCollapse = () => useSideBarStore((state) => state.isSideBarCollapse)
+export const useIsMobile = () => useSideBarStore((state) => state.isMobile)
+export const useIsSideBarOpen = () => useSideBarStore((state) => state.isSideBarOpen)
+export const useSidebarActions = () => useSideBarStore((state) => state.actions)

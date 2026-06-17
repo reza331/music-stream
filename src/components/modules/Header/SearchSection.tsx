@@ -16,7 +16,7 @@ const SearchSection = () => {
     const debouncedSearch = useDebounce(searchValue, 1000)
     const isSearchActive = debouncedSearch.trim().length > 0
     const { data: trackData, isError: tracksError, isPending: trackPending, refetch: refetchTracks } = useTracksQuery('search', `limit=5&query=${debouncedSearch}`, isSearchActive)
-    const { data: playlistData, isError: playlistsError, isPending: playlistsPending, refetch: refetchPlaylists } = usePlaylistsQuery('search', `limit=5&query=${debouncedSearch}`, isSearchActive)
+    const { data: playlistData, isError: playlistsError, isPending: playlistsPending, refetch: refetchPlaylists } = usePlaylistsQuery('search', `limit=3&query=${debouncedSearch}`, isSearchActive)
 
     const pathname = usePathname()
 

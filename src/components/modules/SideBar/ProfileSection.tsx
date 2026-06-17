@@ -1,8 +1,8 @@
-import { useSideBarStore } from "@/stores/sideBarStore";
+import { useIsSideBarCollapse } from "@/stores/sideBarStore";
 import { useSession } from "next-auth/react";
 const ProfileSection = () => {
 
-    const { isSideBarCollapse } = useSideBarStore()
+    const  isSideBarCollapse  = useIsSideBarCollapse()
     const { data, status } = useSession()
 
     if (status === 'unauthenticated' || status === 'loading') return null

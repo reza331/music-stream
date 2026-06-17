@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
 
     try {
 
@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
 
         await dbConnect()
 
-        const savedList = await savedTracksModel.find({ userID: session.user.id })
+        const savedList = await savedTracksModel.find({ userID: session.user.id }).sort({ _id: -1 })
 
         return Response.json(savedList, { status: 200 })
 
@@ -61,33 +61,6 @@ export async function GET(req: NextRequest) {
 
     }
 
-}
-
-export async function DELETE(req: NextRequest) {
-
-    try {
-
-        const session = await getNextAuthSession()
-
-        if (!session) return Response.json({ msg: 'unauthorized' }, { status: 401 })
-
-        await dbConnect()
-        const body = await req.json()
-
-        const deleted = await savedTracksModel.findOneAndDelete({ trackID: body.trackID, userID: session.user.id })
-
-        if (!deleted) {
-            return Response.json({ msg: 'Item not found' }, { status: 404 })
-        }
-
-        return Response.json({ msg: 'Removed from save' }, { status: 200 })
-
-    } catch (err) {
-
-        console.log('Error =>', err);
-        return Response.json({ msg: 'Server Error' }, { status: 500 })
-
-    }
 }
 
 

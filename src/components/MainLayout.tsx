@@ -3,17 +3,19 @@ import { FC, PropsWithChildren, useEffect, useRef } from "react"
 import SideBar from "./modules/SideBar/SideBar"
 import { usePathname } from "next/navigation"
 import Header from "./modules/Header/Header"
-import { useSideBarStore } from "@/stores/sideBarStore"
 import { getViewPortWidth } from "@/utils/ui/getViewPortW"
 import AudioPlayer from "./modules/Player/AudioPlayer"
 import { useScrollStore } from "@/stores/scrollStore"
 import NextTopLoader from "nextjs-toploader"
 import { useTheme } from "next-themes"
+import { useIsMobile, useIsSideBarCollapse, useSidebarActions } from "@/stores/sideBarStore"
 
 const MainLayout: FC<PropsWithChildren> = ({ children }) => {
 
     const { setIsBottom } = useScrollStore()
-    const { isSideBarCollapse, setSideBarOpen, isMobile } = useSideBarStore()
+    const isMobile = useIsMobile()
+    const isSideBarCollapse = useIsSideBarCollapse()
+    const {setSideBarOpen} = useSidebarActions()
     const pathname = usePathname()
     const scrollableElemRef = useRef<HTMLDivElement>(null)
     const { theme } = useTheme()

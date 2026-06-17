@@ -13,7 +13,7 @@ import SpinnerLoading from "../Loadings/SpinnerLoading"
 const LongTrackCard: FC<Track> = (props) => {
 
     const { id, artwork, title, user } = props
-    const artworkUrl = useMusicImage({ baseImage: artwork["150x150"] ?? null, imageSize: '480x480' })
+    const artworkUrl = useMusicImage({ baseImage: artwork && artwork["150x150"] , imageSize: '480x480' })
     const { playAction } = usePlayAction(props, id)
     const { isSaved } = useIsSaved(id, 'track')
     const { isLoading, saveTrack, removeSavedTrack } = useSaveAction()

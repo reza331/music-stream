@@ -1,5 +1,5 @@
 "use client"
-import { useSideBarStore } from "@/stores/sideBarStore"
+import { useIsSideBarCollapse } from "@/stores/sideBarStore"
 import React, { useEffect, useState } from "react"
 
 const Clock: React.FC = () => {
@@ -11,7 +11,7 @@ const Clock: React.FC = () => {
         return () => clearInterval(timer)
     }, [])
 
-    const isSideBarCollapse = useSideBarStore(state => state.isSideBarCollapse)
+    const isSideBarCollapse = useIsSideBarCollapse()
 
     const timeFormatter = React.useMemo(() => new Intl.DateTimeFormat("en", { hour: "2-digit", minute: "2-digit" }), [])
     const dateFormatter = React.useMemo(() => new Intl.DateTimeFormat("en", { year: "numeric", month: "long", day: "numeric" }), [])

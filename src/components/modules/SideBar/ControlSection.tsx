@@ -2,12 +2,12 @@
 import { useSession } from "next-auth/react";
 import LoginLogoutArea from "../Controls/LoginLogout";
 import ThemeToggle from "../Controls/ThemeToggle";
-import { useSideBarStore } from "@/stores/sideBarStore";
+import { useIsSideBarCollapse } from "@/stores/sideBarStore";
 
 const ControlSection = () => {
 
   const { status } = useSession()
-  const { isSideBarCollapse } = useSideBarStore()
+  const  isSideBarCollapse  = useIsSideBarCollapse()
 
   if (status === 'loading') return null
 

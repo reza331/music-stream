@@ -1,6 +1,6 @@
 export const getEndPoint = (key: string) => {
 
-    let queryInfo: { endpoint: null | string, searchparams: null | string } = { endpoint: null, searchparams: null }
+    const queryInfo: { endpoint: null | string, searchparams: null | string } = { endpoint: null, searchparams: null }
 
     if (key === 'trending') {
         queryInfo.endpoint = 'trending'
