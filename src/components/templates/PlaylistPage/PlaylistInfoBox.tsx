@@ -13,10 +13,10 @@ const PlaylistInfoBox = (props: Playlist) => {
     const artworkUrl = useMusicImage({ baseImage: artwork && artwork["150x150"], imageSize: '480x480' })
     const userProfileImage = useMusicImage({ baseImage: user.profile_picture && user.profile_picture["150x150"], imageSize: '480x480' })
     const { isSaved } = useIsSaved(id, 'playlist')
-    const {isLoading , removeSavedPlaylist , savePlaylist} = useSaveAction()
+    const { isLoading, removeSavedPlaylist, savePlaylist } = useSaveAction()
 
     return (
-        <div className="select-none xl:h-[330px] flex flex-col xl:flex-row items-center neu__norm rounded-2xl overflow-hidden">
+        <div className="select-none xl:h-[330px] items-center lg:items-start flex flex-col xl:flex-row neu__norm rounded-2xl overflow-hidden">
             {
                 artworkUrl &&
                 <div className={`relative flex justify-center w-full xl:w-[330px] h-[200px] xl:h-[330px] bg-red-100`}>
@@ -43,15 +43,17 @@ const PlaylistInfoBox = (props: Playlist) => {
                     }
                 </div>
             </div>
-            {
-                isLoading && <div className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-1 transition-[translate] duration-500">
-                    <SpinnerLoading withText={true} text="loading" className="size-4" />
-                </div>
-            }
-            {
-                !isLoading &&
-                <button onClick={isSaved ? () => removeSavedPlaylist(id) : () => savePlaylist(id)} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-1 transition-[translate] duration-500">{isSaved ? <AiFillHeart className="size-4 xl:size-7" /> : <CiHeart className="size-4 xl:size-7" />}{isSaved ? `Unsave` : `Save`}</button>
-            }
+            <div className="pe-5 py-5">
+                {
+                    isLoading && <div className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-1 transition-[translate] duration-500">
+                        <SpinnerLoading withText={true} text="loading" className="size-4" />
+                    </div>
+                }
+                {
+                    !isLoading &&
+                    <button onClick={isSaved ? () => removeSavedPlaylist(id) : () => savePlaylist(id)} className="xl:text-[16px] flex items-center ps-5 gap-2 neu__norm py-3 w-[120px] xl:w-[170px] rounded-2xl hover:translate-x-1 transition-[translate] duration-500">{isSaved ? <AiFillHeart className="size-4 xl:size-7" /> : <CiHeart className="size-4 xl:size-7" />}{isSaved ? `Unsave` : `Save`}</button>
+                }
+            </div>
         </div>
     )
 }
