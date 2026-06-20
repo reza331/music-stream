@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Stream Beat
 
-First, run the development server:
+**Stream-Beat** is a modern music streaming webapp that uses audius api
+
+---
+
+## Demo
+
+Live demo: 
+* [ https://stream-beat.onrender.com ]
+* [ https://stream-beat.netlify.app ]
+
+---
+
+## Screenshots
+
+![Screenshot 1](https://ucarecdn.com/9baa045c-4147-4ed1-ac00-a9c786125da3/-/preview/1000x454/)
+![Screenshot 2](https://ucarecdn.com/a9bd0cd3-9749-444f-98af-d2f73d74d130/-/preview/1000x454/)
+![Screenshot 3](https://ucarecdn.com/7a3cb42b-934b-4262-824c-f6609b03866d/-/preview/1000x454/)
+
+---
+
+## Technologies Used
+
+**Frontend:** Next.js, Tailwind CSS, React Query, Zustand
+**Backend:** Next.js API Routes, MongoDB, NextAuth
+
+---
+
+## How to Run Locally
 
 ```bash
+# Clone the repository
+git clone <your-repo-link>
+
+# Install dependencies
+npm install
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contact
 
-## Learn More
+Created by Reza Reihani
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Email: reza331wn@gmail.com
+* Telegram: https://t.me/reza_re_frontDev
