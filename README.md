@@ -23,8 +23,8 @@ Live demo:
 
 ## Technologies Used
 
-**Frontend:** Next.js, Tailwind CSS, React Query, Zustand
-**Backend:** Next.js API Routes, MongoDB, NextAuth
+# **Frontend:** Next.js, Tailwind CSS, React Query, Zustand
+# **Backend:** Next.js API Routes, MongoDB, NextAuth
 
 ---
 
