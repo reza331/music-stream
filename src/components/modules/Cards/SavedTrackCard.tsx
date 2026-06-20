@@ -13,7 +13,7 @@ import SpinnerLoading from "../Loadings/SpinnerLoading"
 const SavedTrackCard: FC<{ userID: string, trackID: string | number }> = ({ trackID }) => {
 
     const { data, isPending } = useTrackQuery(trackID)
-    const imgUrl = useMusicImage({ baseImage: data?.data.artwork["150x150"] ?? '', imageSize: '150x150' })
+    const imgUrl = useMusicImage({ baseImage: (data && data.data.artwork) ? data.data.artwork["150x150"] : '', imageSize: '150x150' })
     const { isSaved } = useIsSaved(trackID, 'track')
     const { playAction } = usePlayAction(data?.data ?? null, trackID)
     const { isLoading, saveTrack, removeSavedTrack } = useSaveAction()

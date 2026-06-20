@@ -12,13 +12,9 @@ import SpinnerLoading from "../Loadings/SpinnerLoading"
 const SavedPlayListCard: FC<{ userID: string, playlistID: string | number }> = ({ playlistID }) => {
 
     const { data, isPending } = usePlaylistQuery(playlistID)
-    const imgUrl = useMusicImage({ baseImage: data?.data[0].artwork["150x150"] ?? '', imageSize: '150x150' })
+    const imgUrl = useMusicImage({ baseImage: (data && data.data[0].artwork) ? data.data[0].artwork["150x150"] : '', imageSize: '150x150' })
     const { isSaved } = useIsSaved(playlistID, 'playlist')
     const { isLoading, savePlaylist, removeSavedPlaylist } = useSaveAction()
-
-    useEffect(() => {
-        console.log("Data => ", data);
-    }, [data])
 
     return (
         <div className="w-full neu__norm rounded-3xl h-[150px] lg:h-[90px] gap-3 flex lg:flex-row flex-col px-10 py-3 lg:items-center lg:justify-between">
