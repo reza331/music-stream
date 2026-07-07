@@ -9,6 +9,7 @@ import { getDuration } from "@/utils/formatters/getDuration"
 import Link from "next/link"
 import { useState } from "react"
 import { AiFillHeart } from "react-icons/ai"
+import { BiUser } from "react-icons/bi"
 import { BsFillClipboardXFill, BsHeadphones } from "react-icons/bs"
 import { CiHeart } from "react-icons/ci"
 import { FaDownload } from "react-icons/fa"
@@ -19,8 +20,8 @@ const TrackInfoAndActionBox = (props: Track) => {
 
     const [descExtended, setDescExtended] = useState<boolean>(false)
 
-    const artworkUrl = useMusicImage({ baseImage: artwork["150x150"] ?? null, imageSize: '480x480' })
-    const userProfilePicture = useMusicImage({ baseImage: user.profile_picture["150x150"] ?? null, imageSize: '150x150' })
+    const artworkUrl = useMusicImage({ baseImage: artwork && artwork["150x150"]  , imageSize: '480x480' })
+    const userProfilePicture = useMusicImage({ baseImage: user.profile_picture && user.profile_picture["150x150"], imageSize: '150x150' })
 
     const { playAction } = usePlayAction(props, id)
     const { isSaved } = useIsSaved(id, 'track')
@@ -44,6 +45,7 @@ const TrackInfoAndActionBox = (props: Track) => {
                             <div className="flex flex-col justify-center gap-3 w-[150px]">
                                 <div className="flex items-center neu__norm w-full ps-1 py-1 rounded-full">
                                     {userProfilePicture && <img className="size-5 lg:size-10 rounded-full block me-2" src={userProfilePicture} />}
+                                    {!userProfilePicture &&  <BiUser className="size-4"/>}
                                     <div className="font-semibold text-[8px] lg:text-[12px] line-clamp-1">{user.name}</div>
                                 </div>
                                 <div className="flex items-center neu__norm w-full ps-3 py-2 rounded-full gap-1">
