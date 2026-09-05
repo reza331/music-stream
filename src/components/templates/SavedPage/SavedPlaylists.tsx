@@ -13,7 +13,7 @@ const SavedPlaylists = () => {
     const paginationProps = usePagination<{ userID: string, playlistID: string | number }>(data, 4)
 
     return (
-        <SavedBox paginationProps={paginationProps} sectionTitle="Saved Tracks">
+        <SavedBox paginationProps={paginationProps} sectionTitle="Saved Playlists">
             {
                 isPending &&
                 <div className='flex w-full justify-center items-center h-[150px]'>
