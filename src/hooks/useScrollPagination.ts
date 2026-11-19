@@ -38,6 +38,7 @@ const useScrollPagination = <T>({ fetchHook, setData }: UseScrollPaginationProps
     }, [isBottom])
 
     return { page, isError, isPending }
+    
 }
 
 export default useScrollPagination
