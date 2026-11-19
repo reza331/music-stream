@@ -3,7 +3,6 @@ import useSavedPlaylistsQuery from '@/hooks/queryHooks/useSavedPlaylistsQuery'
 import usePagination from '@/hooks/usePagination'
 import SavedBox from './SavedBox'
 import SavedPlayListCard from '@/components/modules/Cards/SavedPlayListCard'
-import { SavedPlaylistPayload } from '@/types/saved-list.type'
 import { FaSadTear } from 'react-icons/fa'
 import SpinnerLoading from '@/components/modules/Loadings/SpinnerLoading'
 
